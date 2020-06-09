@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %} {{book[3]}} {% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <div class="alert alert-warning" role="alert">
+                <div style="text-align: center;">{{msg}}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+    <div class="jumbotron">
+      <h1 class="display-4">{{book[3]}} <small><span>({{year}})</span></small></h1>
+      <p class="lead">{{book[2]}}</p>
+      <hr class="my-4">
+      <p class="text-muted">ISBN:{{book[1]}}</p>
+        {% if rating_num < 4 %}
+      <p class="text-muted">Rating:
+         <b><span style="color:goldenrod;">{{rating}}/5</span></b>
+      </p>
+        {% elif rating_num > 4 %}
+      <p class="text-muted">Rating:
+         <b><span style="color:green;">{{rating}}/5</span></b>
+      </p>
+        {% elif rating_num < 3.5 %}
+      <p class="text-muted">Rating:
+         <b><span style="color:red;">{{rating}}/5</span></b>
+      </p>
+        {% endif %}
+    </div>
+
+    <form action="{{url_for('detail',book_isbn = book[1])}}" method="post" style="margin-left: 3%;width: 50%;">
+        <div class="form-group">
+            <label for="comment">Comment</label>
+            <input type="text" id="comment" class="form-control" name ="review" placeholder="Write your review">
+        </div>
+         <div class="form-group">
+            <label for="exampleFormControlSelect1">Rating</label>
+            <select class="form-control" name="rating" id="exampleFormControlSelect1">
+              <option>5</option>
+              <option>4.5</option>
+              <option>4</option>
+              <option>3.5</option>
+              <option>3</option>
+              <option>2.5</option>
+              <option>2</option>
+            </select>
+          </div>
+        <button class="btn btn-primary btn-lg">Send</button>
+    </form>
+<br>
+    <div class="reviews" style="margin-left: 3%">
+        {% for review in review_list %}
+            <div>
+                <b>{{review.username}}</b>
+                <span class="text-muted"> rated this book <span>{{review.rating}}/5</span></span>
+                <p>{{review.comment}}</p>
+            </div>
+        <hr>
+        {% endfor %}
+    </div>
+
+{% endblock %}}

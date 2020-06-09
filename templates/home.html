@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<center><h3 style="margin-top:3%;margin-left: 3%;">First 20 Books</h3></center>
+<div class="row" style="margin-top: 2%">
+    {% for book in first_books %}
+    <div class="card mx-auto" style="width: 18rem; margin: 1%; margin-left: 1%;">
+       <div class="card-body">
+        <h5 class="card-title">{{book[3]}}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{book[2]}}</h6>
+        <a href="{{url_for('detail',book_isbn = book[1])}}" class="card-link">Book Detail</a>
+      </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}
