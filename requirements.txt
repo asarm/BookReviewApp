@@ -2,3 +2,10 @@ Flask
 Flask-Session
 psycopg2-binary
 SQLAlchemy
+gunicorn
+Jinja2
+Werkzeug
+certifi
+chardet
+requests
+distribute
