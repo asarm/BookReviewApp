@@ -67,7 +67,7 @@ def register():
     elif request.method == 'POST':
         register_username = request.form.get('username')
         register_password = request.form.get('password')
-        query  = 'SELECT username FROM users WHERE username = :username'
+        query = 'SELECT username FROM users WHERE username = :username'
 
         if db.execute(query, {'username': register_username}).first():
             flash('Username is already exist')
@@ -90,14 +90,12 @@ def login():
         session.clear()
         user = db.execute("SELECT username,password FROM users WHERE (username = :username AND password = :password)",
                 {'username':login_username,'password':login_password}).first()
-
         if user == None:
             print('Invalid user')
             flash('Wrong username or password')
             return render_template('login.html')
         else:
             session['username'] = login_username
-            username = session['username']
             return redirect(url_for('index'))
 
 #Logout
